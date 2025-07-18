@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Profile - Medical Practice</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-card {
+            width: 100%;
+            min-height: 100vh;
+            background: white;
+            overflow: hidden;
+        }
+
+        .header {
+            background: white;
+            padding: 30px 20px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .menu-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            color: #333;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #f0f0f0;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 18px;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .call { background: #34c759; color: white; }
+        .whatsapp { background: #25d366; color: white; }
+        .facebook { background: #1877f2; color: white; }
+        .instagram { background: #e4405f; color: white; }
+
+        .content {
+            background: #2c3e50;
+            padding: 30px 20px;
+            color: white;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 16px;
+            color: #bdc3c7;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .skills {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .skill-item {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-cardiology { color: #e74c3c; }
+        .skill-neurology { color: #3498db; }
+        .skill-orthopedic { color: #2ecc71; }
+        .skill-pediatric { color: #f39c12; }
+
+        .profession {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+        }
+
+        .locations {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .location-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            transition: background 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .location-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .location-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .location-address {
+            color: #bdc3c7;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .location-icon {
+            float: right;
+            margin-top: 2px;
+            color: #3498db;
+            font-size: 18px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .header {
+                padding: 25px 15px 15px;
+            }
+            
+            .content {
+                padding: 25px 15px;
+            }
+            
+            .skills {
+                gap: 10px;
+            }
+            
+            .skill-item {
+                width: 55px;
+                height: 55px;
+                font-size: 20px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .header {
+                padding: 40px 30px 30px;
+            }
+            
+            .content {
+                padding: 40px 30px;
+            }
+            
+            .locations {
+                flex-direction: column;
+            }
+        }
+
+        /* Animation for page load */
+        .profile-card {
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Pulse animation for profile image */
+        .profile-img {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <div class="header">
+            
+            <img src="./Logo gasals.png" 
+                 alt="Profile" class="profile-img" id="profileImg">
+            
+            <h2 class="name" id="doctorName">Dr Gasals Dental Clinic</h2>
+            <p class="title" id="doctorTitle"></p>
+            
+            <div class="social-links">
+                <a href="tel:+918281098216" class="social-link call" title="Call">
+                    <i class="fas fa-phone"></i>
+                </a>
+                <a href="https://wa.me/+918281098216" class="social-link whatsapp" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.facebook.com/share/17EBYgFpP6/" class="social-link facebook" title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/dr.gasals.clinic?igsh=NDZpcmVxcXFpNGVh" class="social-link instagram" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h3 class="section-title">Clinic Locations</h3>
+                <div class="locations">
+                    <div class="location-item" onclick="openLocation(1)">
+                        <i class="fas fa-map-marker-alt location-icon"></i>
+                        <div class="location-name">Dr Gasal’s Dental Care</div>
+                        <div class="location-address">Konathukunnu, Thekkumkara<br>Kerala 680123</div>
+                    </div>
+                    
+                    <div class="location-item" onclick="openLocation(2)">
+                        <i class="fas fa-map-marker-alt location-icon"></i>
+                        <div class="location-name">Dr Gasal's Esthetic & Multispeciality Dental Clinic</div>
+                        <div class="location-address">Hyson Building, Kodungallur<br>Kerala 680669</div>
+                    </div>
+                    
+                    <div class="location-item" onclick="openLocation(3)">
+                        <i class="fas fa-map-marker-alt location-icon"></i>
+                        <div class="location-name">Dr Gasal's Dental Clinic</div>
+                        <div class="location-address">Kuttipuzha Nagar, Poothole, Thrissur<br>Kerala 680004</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Location functions
+        function openLocation(locationId) {
+    const locations = {
+        1: {
+            mapUrl: "https://maps.app.goo.gl/DPVkmaMMx3yPSFVV7"
+        },
+        2: {
+            mapUrl: "https://maps.app.goo.gl/wVPaZUy2KWW8WVhN9"
+        },
+        3: {
+            mapUrl: "https://maps.app.goo.gl/XxyYMRYQrZziWwB37"
+        }
+    };
+
+    const location = locations[locationId];
+    if (location) {
+        window.open(location.mapUrl, '_blank');
+    }
+}
+
+
+        // Profile image click effect
+        document.getElementById('profileImg').addEventListener('click', function() {
+            this.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+        });
+
+        // Social media links
+document.querySelectorAll('.social-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = this.getAttribute('href');
+        if (url) {
+            window.open(url, '_blank'); // Opens the link in a new tab
+        }
+    });
+});
+
+
+        // Smooth scrolling effect for mobile
+        // Removed container-specific mobile adjustments
+
+        // Add loading effect
+        window.addEventListener('load', function() {
+            const card = document.querySelector('.profile-card');
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+
+        // Responsive adjustments
+        function handleResize() {
+            // Remove container-specific adjustments since we're now full-width
+            const card = document.querySelector('.profile-card');
+            card.style.width = '100%';
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Call on initial load
+    </script>
+</body>
+</html>
